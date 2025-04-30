@@ -9,9 +9,6 @@ export const convertPdfToDocx = async (pdfBuffer: Buffer): Promise<Buffer> => {
 
     // Create a new DOCX document
     const doc = new Document({
-      title: "Converted Document",
-      description: "Document converted from PDF",
-      creator: "File Converter",
       sections: [{
         properties: {},
         children: []
@@ -32,9 +29,8 @@ export const convertPdfToDocx = async (pdfBuffer: Buffer): Promise<Buffer> => {
         ],
       });
 
-      if (doc.sections && doc.sections[0] && doc.sections[0].children) {
-        doc.sections[0].children.push(paragraph);
-      }
+      // @ts-expect-error - docx types are not properly defined
+      doc.sections[0].children.push(paragraph);
     }
 
     // Generate the DOCX file
