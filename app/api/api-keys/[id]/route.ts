@@ -5,10 +5,9 @@ import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import APIKey from "@/lib/models/APIKey";
 import { Types } from "mongoose";
 
-
 export async function GET(
-  req: NextRequest,
-  { params }: { params: { [key: string]: string } }
+  request: NextRequest,
+  context: { params: { id: string } }
 ) {
     const session = await getServerSession(authOptions);
 
@@ -20,7 +19,7 @@ export async function GET(
   if(!user.isProUser){
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
-   const { id } = params;
+   const { id } = context.params;
    if (!id) {
         return NextResponse.json({ error: 'API key ID is required' }, { status: 400 });
     }
@@ -35,7 +34,7 @@ export async function GET(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { [key: string]: string } }
+  context: { params: { id: string } }
 ) {
     const session = await getServerSession(authOptions);
 
@@ -48,7 +47,7 @@ export async function DELETE(
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
     try {
-      const { id } = params;
+      const { id } = context.params;
 
       if (!id) {
           return NextResponse.json({ error: 'API key ID is required' }, { status: 400 });
