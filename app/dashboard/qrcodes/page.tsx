@@ -25,14 +25,16 @@ export default function QRCodePage() {
     enabled: !!user,
   });
 
-  function downloadFile(url: string, filename?: string) {
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = filename || ""; // if filename is not provided, use default from URL
-    link.target = "_blank";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  function downloadFile(url?: string, filename?: string) {
+    if (url) {
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = filename || ""; // if filename is not provided, use default from URL
+      link.target = "_blank";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
   }
 
   function openInNewTab(url?: string) {
@@ -124,7 +126,13 @@ export default function QRCodePage() {
                             </Button>
                             <Button variant="outline" size="sm" asChild>
                               <a
-                                href={`/api/qr-code/${qrCode.shortId}/download`}
+                                // href={`/api/qr-code/${qrCode.shortId}/download`}
+                                onClick={() =>
+                                  downloadFile(
+                                    qrCode.url,
+                                    `qr-code-${new Date()}.png`
+                                  )
+                                }
                               >
                                 <Download className="h-4 w-4 mr-2" />
                                 Download

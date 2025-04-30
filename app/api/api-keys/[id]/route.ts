@@ -6,7 +6,10 @@ import APIKey from "@/lib/models/APIKey";
 import { Types } from "mongoose";
 
 
-export async function GET(req: NextRequest, { params}: { params: { id: string } }) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { [key: string]: string } }
+) {
     const session = await getServerSession(authOptions);
 
   if (!session || !session.user) {
@@ -30,7 +33,10 @@ export async function GET(req: NextRequest, { params}: { params: { id: string } 
 }
 
 
-export async function DELETE(request: NextRequest, { params}: { params: { id: string } }) {
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { [key: string]: string } }
+) {
     const session = await getServerSession(authOptions);
 
   if (!session || !session.user) {
