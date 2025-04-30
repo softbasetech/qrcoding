@@ -1,14 +1,14 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getServerSession } from 'next-auth/next';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import Paystack from '@paystack/paystack-sdk';
 import Payment from '@/lib/models/Payment';
-import { NextApiRequest } from 'next';
 import { authOptions } from '@/app/utils/authOptions';
 
 const paystack = new Paystack(process.env.PAYSTACK_SECRET_KEY);
 
-export async function POST(req: NextApiRequest) {
+export async function POST(req: NextRequest) {
     const session = await getServerSession(authOptions);
     const user = session?.user;
     try {
@@ -21,7 +21,7 @@ export async function POST(req: NextApiRequest) {
         email,
         amount,
         currency: 'GHS',
-        callback_url: `${process.env.APP_URL || req.headers.origin}/dashboard/subscription?success=true`,
+        callback_url: `${process.env.APP_URL || "https://qrcoding.vercel.com"}/dashboard/subscription?success=true`,
         metadata: {
         userId: user.id,
         // customerId
