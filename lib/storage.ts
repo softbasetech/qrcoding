@@ -1,5 +1,5 @@
-import { User } from "./services/user.service";
 import fs from "fs";
+import User from "./models/User";
 
 export class Storage {
 
