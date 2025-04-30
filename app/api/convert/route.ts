@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/utils/authOptions";
 import FileConversion from "@/lib/models/FileConversion";
 import { convertImage, convertPdfToImages, deleteFile, generatePdfFromImage, PDF_CONVERSION_SUPPORTED_FORMATS, SUPPORTED_IMAGE_FORMATS, uploadFile, convertDocument, DOC_CONVERSION_SUPPORTED_FORMATS } from "@/lib/cloundinary";
 import dbConnect from "@/lib/db";

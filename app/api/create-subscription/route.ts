@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import { NextResponse } from 'next/server';
 import Paystack from '@paystack/paystack-sdk';
 import Payment from '@/lib/models/Payment';
 import { NextApiRequest } from 'next';
+import { authOptions } from '@/app/utils/authOptions';
 
 const paystack = new Paystack(process.env.PAYSTACK_SECRET_KEY);
 

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // import QRCode from 'qrcode';
 import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/app/utils/authOptions';
 import { NextRequest, NextResponse } from 'next/server';
 import * as qr from "qrcode";
 import { nanoid } from "nanoid";

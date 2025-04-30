@@ -9,11 +9,12 @@ import QRScan from "@/lib/models/QRScan";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { shortId: string } }
+  { params } : { params: Promise<{ shortId: string }> }
 ) {
   try {
     await dbConnect();
-    const qrCode = await QRCode.findOne({ shortId: params.shortId });
+    const { shortId } = await params;
+    const qrCode = await QRCode.findOne({ shortId: shortId });
 
     if (!qrCode) {
       return NextResponse.json(

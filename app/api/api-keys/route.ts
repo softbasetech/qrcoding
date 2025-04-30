@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from "@/app/utils/authOptions";
 import { NextRequest, NextResponse } from 'next/server';
 import { randomBytes } from 'crypto';
 import APIKey from '@/lib/models/APIKey';

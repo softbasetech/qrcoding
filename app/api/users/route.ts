@@ -3,7 +3,7 @@ import { getUserFromRequest } from '@/lib/utils';
 import { NextApiResponse } from 'next';
 import { type NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/app/utils/authOptions';
 import FileConversion from '@/lib/models/FileConversion';
 import { Types } from 'mongoose';
 import QRCode from '@/lib/models/QRCode';

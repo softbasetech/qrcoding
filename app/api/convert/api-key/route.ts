@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import FileConversion from "@/lib/models/FileConversion";
 import { convertImage, generatePdfFromImage, PDF_CONVERSION_SUPPORTED_FORMATS, SUPPORTED_FILE_FORMATS, SUPPORTED_IMAGE_FORMATS, uploadFile } from "@/lib/cloundinary";
 import dbConnect from "@/lib/db";
 import { validateApiKey } from "@/lib/utils";
+import { authOptions } from "@/app/utils/authOptions";
 
 // const DAILY_LIMIT = 1000;
 // const GUEST_EXPIRY_HOURS = 24;

@@ -3,7 +3,7 @@
 import CustomerEnquiry from '@/lib/models/CustomerEnquiry';
 import { getServerSession } from 'next-auth';
 import { type NextRequest, NextResponse } from 'next/server';
-import { authOptions } from '../auth/[...nextauth]/route';
+import { authOptions } from "@/app/utils/authOptions";
 
 export async function POST(request: NextRequest) {
     if (request.method !== 'POST') {
