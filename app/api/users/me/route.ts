@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { NextApiResponse } from 'next';
+
+
 import { type NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/app/utils/authOptions';
@@ -8,7 +9,7 @@ import { Types } from 'mongoose';
 import QRCode from '@/lib/models/QRCode';
 
 
-export async function GET(request: NextRequest, res: NextApiResponse) {
+export async function GET(request: NextRequest) {
   const session = await getServerSession(authOptions);
 
   if (!session || !session.user) {
