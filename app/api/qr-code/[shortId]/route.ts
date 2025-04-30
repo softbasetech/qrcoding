@@ -2,10 +2,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/lib/db";
 import QRCode from "@/lib/models/QRCode";
-import geoip from "geoip-lite";
-import { UAParser }from "ua-parser-js";
+import { UAParser } from "ua-parser-js";
 import { headers } from "next/headers";
 import QRScan from "@/lib/models/QRScan";
+import ipinfo from "ipinfo";
 
 export async function GET(
   req: NextRequest,
@@ -33,8 +33,21 @@ export async function GET(
     const browser = parser.getBrowser();
     const os = parser.getOS();
 
-    // Get location information
-    const geo = geoip.lookup(ip);
+    // Get location information using ipinfo
+    let locationInfo = {};
+    try {
+      const ipInfo = await ipinfo(ip);
+      locationInfo = {
+        city: ipInfo.city,
+        country: ipInfo.country,
+        region: ipInfo.region,
+        timezone: ipInfo.timezone,
+      };
+    } catch (error) {
+      console.error('Error getting IP info:', error);
+      // Fallback to just storing the IP if geolocation fails
+      locationInfo = { ip };
+    }
 
     // Record scan
     await QRScan.create({
@@ -46,10 +59,7 @@ export async function GET(
         browser: browser.name || "unknown",
         os: os.name || "unknown",
       },
-      location: {
-        city: geo?.city,
-        country: geo?.country,
-      },
+      location: locationInfo,
     });
 
     // Increment scan count
