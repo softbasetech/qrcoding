@@ -7,7 +7,7 @@ import { Types } from "mongoose";
 
 export async function GET(
   request: NextRequest,
-  context: { params: { id: string } }
+  { params } : { params: Promise<{ id: string }> }
 ) {
     const session = await getServerSession(authOptions);
 
@@ -19,7 +19,7 @@ export async function GET(
   if(!user.isProUser){
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
-   const { id } = context.params;
+   const { id } = await params;
    if (!id) {
         return NextResponse.json({ error: 'API key ID is required' }, { status: 400 });
     }
@@ -34,7 +34,7 @@ export async function GET(
 
 export async function DELETE(
   request: NextRequest,
-  context: { params: { id: string } }
+  { params } : { params: Promise<{ id: string }> }
 ) {
     const session = await getServerSession(authOptions);
 
@@ -47,7 +47,7 @@ export async function DELETE(
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
     try {
-      const { id } = context.params;
+      const { id } = await params;
 
       if (!id) {
           return NextResponse.json({ error: 'API key ID is required' }, { status: 400 });
